@@ -1,0 +1,1300 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>REVO RESTO — Restaurant Gastronomique</title>
+<meta name="description" content="REVO RESTO, restaurant gastronomique au cœur de Paris. Cuisine française authentique, produits frais et de saison. Réservez en scannant le QR code.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noir:#0d0d0d;--noir-2:#141414;--noir-3:#1c1c1c;
+  --or:#c8a24a;--or-clair:#e3c77f;
+  --creme:#f4efe6;--gris:#a5a096;--blanc:#ffffff;
+  --radius:4px;--t:.35s cubic-bezier(.4,0,.2,1);
+  --shadow:0 18px 50px rgba(0,0,0,.45);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;scroll-padding-top:90px;}
+body{font-family:'Jost',sans-serif;font-weight:300;background:var(--noir);color:var(--creme);line-height:1.7;overflow-x:hidden;-webkit-font-smoothing:antialiased;}
+img{display:block;max-width:100%;height:auto;}
+a{text-decoration:none;color:inherit;}
+ul{list-style:none;}
+button,input,select,textarea{font:inherit;color:inherit;}
+button{cursor:pointer;border:none;background:none;}
+::selection{background:var(--or);color:var(--noir);}
+::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar-track{background:var(--noir-2);}
+::-webkit-scrollbar-thumb{background:#3a352c;border-radius:10px;}
+::-webkit-scrollbar-thumb:hover{background:var(--or);}
+
+.container{width:100%;max-width:1200px;margin:0 auto;padding:0 24px;}
+.section{padding:110px 0;position:relative;}
+.section--alt{background:var(--noir-2);}
+.section__head{text-align:center;max-width:720px;margin:0 auto 64px;}
+.eyebrow{display:inline-block;font-size:.75rem;letter-spacing:.35em;text-transform:uppercase;color:var(--or);font-weight:500;margin-bottom:18px;}
+.section__title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.2rem);font-weight:600;line-height:1.2;color:var(--blanc);}
+.section__title span{color:var(--or);font-style:italic;}
+.separator{width:70px;height:1px;background:linear-gradient(90deg,transparent,var(--or),transparent);margin:22px auto 0;}
+.section__text{margin-top:20px;color:var(--gris);font-size:1.02rem;}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:15px 34px;font-size:.8rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;border-radius:var(--radius);transition:var(--t);position:relative;overflow:hidden;white-space:nowrap;}
+.btn--primary{background:var(--or);color:var(--noir);}
+.btn--primary:hover{background:var(--or-clair);transform:translateY(-3px);box-shadow:0 14px 30px rgba(200,162,74,.28);}
+.btn--outline{border:1px solid rgba(200,162,74,.6);color:var(--creme);}
+.btn--outline:hover{background:var(--or);border-color:var(--or);color:var(--noir);transform:translateY(-3px);}
+.btn--whatsapp{background:#25D366;color:#fff;}
+.btn--whatsapp:hover{background:#1ebe5d;transform:translateY(-3px);box-shadow:0 14px 30px rgba(37,211,102,.35);}
+.btn--whatsapp svg{width:18px;height:18px;}
+
+.reveal{opacity:0;transform:translateY(38px);transition:opacity .9s cubic-bezier(.4,0,.2,1), transform .9s cubic-bezier(.4,0,.2,1);}
+.reveal.is-visible{opacity:1;transform:translateY(0);}
+.reveal[data-delay="1"]{transition-delay:.12s;}
+.reveal[data-delay="2"]{transition-delay:.24s;}
+.reveal[data-delay="3"]{transition-delay:.36s;}
+.reveal[data-delay="4"]{transition-delay:.48s;}
+
+/* HEADER */
+.header{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 0;transition:var(--t);}
+.header.scrolled{padding:12px 0;background:rgba(13,13,13,.94);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid rgba(200,162,74,.18);box-shadow:0 10px 30px rgba(0,0,0,.35);}
+.nav{display:flex;align-items:center;justify-content:space-between;gap:24px;}
+.logo{font-family:'Playfair Display',serif;font-size:1.45rem;font-weight:700;letter-spacing:.14em;color:var(--blanc);line-height:1;display:flex;align-items:center;gap:12px;}
+.logo__mark{width:38px;height:38px;display:grid;place-items:center;border:1px solid var(--or);border-radius:50%;color:var(--or);font-size:.95rem;font-family:'Playfair Display',serif;flex-shrink:0;}
+.logo__text span{color:var(--or);}
+.nav__list{display:flex;align-items:center;gap:32px;}
+.nav__link{position:relative;font-size:.82rem;font-weight:400;letter-spacing:.16em;text-transform:uppercase;color:var(--creme);padding:6px 0;transition:color var(--t);}
+.nav__link::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--or);transition:width var(--t);}
+.nav__link:hover,.nav__link.active{color:var(--or);}
+.nav__link:hover::after,.nav__link.active::after{width:100%;}
+.nav__cta{padding:12px 26px;font-size:.72rem;}
+
+.burger{display:none;flex-direction:column;gap:6px;width:34px;padding:6px 0;z-index:1100;}
+.burger span{display:block;height:1.5px;width:100%;background:var(--creme);transition:var(--t);border-radius:2px;}
+.burger.active span:nth-child(1){transform:translateY(7.5px) rotate(45deg);background:var(--or);}
+.burger.active span:nth-child(2){opacity:0;transform:scaleX(0);}
+.burger.active span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg);background:var(--or);}
+
+.mobile-menu{position:fixed;inset:0;z-index:1050;background:rgba(10,10,10,.98);backdrop-filter:blur(10px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;opacity:0;visibility:hidden;transition:opacity .4s ease, visibility .4s ease;}
+.mobile-menu.open{opacity:1;visibility:visible;}
+.mobile-menu a{font-family:'Playfair Display',serif;font-size:1.6rem;color:var(--creme);padding:12px 0;opacity:0;transform:translateY(18px);transition:var(--t);}
+.mobile-menu.open a{opacity:1;transform:translateY(0);}
+.mobile-menu.open a:nth-child(1){transition-delay:.08s;}
+.mobile-menu.open a:nth-child(2){transition-delay:.14s;}
+.mobile-menu.open a:nth-child(3){transition-delay:.20s;}
+.mobile-menu.open a:nth-child(4){transition-delay:.26s;}
+.mobile-menu.open a:nth-child(5){transition-delay:.32s;}
+.mobile-menu.open a:nth-child(6){transition-delay:.38s;}
+.mobile-menu.open a:nth-child(7){transition-delay:.44s;}
+.mobile-menu a:hover{color:var(--or);}
+.mobile-menu .btn{margin-top:24px;}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;padding:120px 24px 80px;}
+.hero__bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&q=80');background-size:cover;background-position:center;animation:heroZoom 22s ease-in-out infinite alternate;}
+@keyframes heroZoom{from{transform:scale(1);}to{transform:scale(1.12);}}
+.hero__overlay{position:absolute;inset:0;background:radial-gradient(ellipse at center, rgba(0,0,0,.35) 0%, rgba(0,0,0,.82) 100%),linear-gradient(to bottom, rgba(13,13,13,.85) 0%, rgba(13,13,13,.35) 40%, rgba(13,13,13,.95) 100%);}
+.hero__content{position:relative;z-index:2;max-width:900px;animation:fadeUp 1.2s ease both;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
+.hero__eyebrow{font-size:.75rem;letter-spacing:.45em;text-transform:uppercase;color:var(--or);margin-bottom:26px;font-weight:400;}
+.hero__title{font-family:'Playfair Display',serif;font-size:clamp(2.7rem,8vw,6rem);font-weight:700;line-height:1.05;letter-spacing:.04em;color:var(--blanc);margin-bottom:8px;}
+.hero__title span{display:block;color:var(--or);font-size:.42em;letter-spacing:.42em;font-weight:400;margin-top:18px;}
+.hero__line{width:90px;height:1px;background:var(--or);margin:32px auto;position:relative;}
+.hero__line::before,.hero__line::after{content:'';position:absolute;top:50%;width:6px;height:6px;background:var(--or);transform:translateY(-50%) rotate(45deg);border-radius:1px;}
+.hero__line::before{left:-18px;}
+.hero__line::after{right:-18px;}
+.hero__subtitle{font-size:clamp(.95rem,2vw,1.15rem);color:rgba(244,239,230,.85);font-weight:300;max-width:560px;margin:0 auto 44px;letter-spacing:.03em;}
+.hero__actions{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+.hero__scroll{position:absolute;bottom:34px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:.65rem;letter-spacing:.3em;text-transform:uppercase;color:rgba(244,239,230,.55);}
+.hero__scroll span{width:1px;height:52px;background:linear-gradient(to bottom,var(--or),transparent);animation:scrollPulse 2s infinite;}
+@keyframes scrollPulse{0%,100%{opacity:.3;transform:scaleY(.6);transform-origin:top;}50%{opacity:1;transform:scaleY(1);transform-origin:top;}}
+
+/* ABOUT */
+.about__grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+.about__images{position:relative;padding-bottom:50px;padding-right:50px;}
+.about__img-main{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);aspect-ratio:4/5;}
+.about__img-main img{width:100%;height:100%;object-fit:cover;transition:transform 1s ease;}
+.about__images:hover .about__img-main img{transform:scale(1.05);}
+.about__img-small{position:absolute;right:0;bottom:0;width:58%;aspect-ratio:1/1;border-radius:var(--radius);overflow:hidden;border:6px solid var(--noir);box-shadow:var(--shadow);}
+.about__img-small img{width:100%;height:100%;object-fit:cover;}
+.about__badge{position:absolute;top:28px;left:-28px;width:110px;height:110px;border-radius:50%;background:var(--or);color:var(--noir);display:grid;place-items:center;text-align:center;font-family:'Playfair Display',serif;line-height:1.15;box-shadow:0 14px 34px rgba(200,162,74,.35);z-index:3;}
+.about__badge strong{display:block;font-size:1.7rem;font-weight:700;}
+.about__badge small{font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;font-family:'Jost',sans-serif;}
+.about__content .section__title{text-align:left;}
+.about__content .separator{margin-left:0;}
+.about__text{color:var(--gris);margin-top:24px;font-size:1rem;}
+.about__text + .about__text{margin-top:16px;}
+.about__features{margin-top:38px;display:grid;grid-template-columns:1fr 1fr;gap:26px;}
+.feature{display:flex;gap:14px;align-items:flex-start;}
+.feature__icon{flex-shrink:0;width:42px;height:42px;display:grid;place-items:center;border:1px solid rgba(200,162,74,.4);border-radius:50%;color:var(--or);}
+.feature__icon svg{width:19px;height:19px;}
+.feature h4{font-family:'Playfair Display',serif;font-size:1.02rem;font-weight:600;color:var(--blanc);margin-bottom:4px;}
+.feature p{font-size:.85rem;color:var(--gris);line-height:1.5;}
+.stats{margin-top:70px;display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);padding:44px 0;text-align:center;}
+.stat__num{font-family:'Playfair Display',serif;font-size:clamp(1.9rem,4vw,2.8rem);font-weight:700;color:var(--or);line-height:1;}
+.stat__label{font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--gris);margin-top:10px;}
+
+/* MENU */
+.menu__tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:12px;margin-bottom:56px;}
+.tab{padding:11px 28px;font-size:.76rem;letter-spacing:.18em;text-transform:uppercase;font-weight:400;color:var(--gris);border:1px solid rgba(255,255,255,.12);border-radius:50px;transition:var(--t);}
+.tab:hover{color:var(--or);border-color:rgba(200,162,74,.5);}
+.tab.active{background:var(--or);border-color:var(--or);color:var(--noir);font-weight:500;}
+.menu__grid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px;}
+.menu-item{display:flex;gap:22px;padding:18px;background:var(--noir-3);border:1px solid rgba(255,255,255,.05);border-radius:var(--radius);transition:var(--t);animation:itemIn .45s ease both;}
+@keyframes itemIn{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
+.menu-item:hover{border-color:rgba(200,162,74,.45);background:#212121;transform:translateY(-4px);box-shadow:0 18px 40px rgba(0,0,0,.4);}
+.menu-item.hide{display:none;}
+.menu-item__img{flex-shrink:0;width:112px;height:112px;border-radius:var(--radius);overflow:hidden;}
+.menu-item__img img{width:100%;height:100%;object-fit:cover;transition:transform .7s ease;}
+.menu-item:hover .menu-item__img img{transform:scale(1.12);}
+.menu-item__body{flex:1;min-width:0;display:flex;flex-direction:column;}
+.menu-item__top{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;}
+.menu-item__top h3{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:600;color:var(--blanc);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.menu-item__dots{flex:1;border-bottom:1px dotted rgba(200,162,74,.45);transform:translateY(-4px);min-width:14px;}
+.menu-item__price{font-family:'Playfair Display',serif;font-size:1.08rem;font-weight:700;color:var(--or);white-space:nowrap;}
+.menu-item__body p{font-size:.86rem;color:var(--gris);line-height:1.55;}
+.tag{display:inline-block;align-self:flex-start;margin-top:10px;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;padding:4px 10px;border-radius:3px;background:rgba(200,162,74,.14);color:var(--or-clair);border:1px solid rgba(200,162,74,.28);}
+.menu__foot{text-align:center;margin-top:54px;}
+.menu__note{color:var(--gris);font-size:.85rem;margin-bottom:24px;font-style:italic;}
+
+/* SCAN & RÉSERVEZ (anciennement Commander) */
+.commander{position:relative;overflow:hidden;}
+.commander__bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center;background-attachment:fixed;}
+.commander__bg::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.94);}
+.commander .container{position:relative;z-index:2;}
+.commander__card{display:grid;grid-template-columns:1fr auto 1fr;gap:48px;align-items:center;background:rgba(20,20,20,.85);border:1px solid rgba(200,162,74,.3);border-radius:8px;padding:56px 48px;backdrop-filter:blur(8px);box-shadow:var(--shadow);position:relative;}
+.commander__col .eyebrow{margin-bottom:14px;}
+.commander__col .section__title{text-align:left;font-size:clamp(1.6rem,3vw,2.2rem);}
+.commander__col .separator{margin:18px 0 0;}
+.commander__col p{color:var(--gris);font-size:.95rem;margin-top:18px;line-height:1.8;}
+.commander__steps{margin-top:22px;display:flex;flex-direction:column;gap:12px;counter-reset:step;}
+.commander__steps li{display:flex;gap:12px;align-items:flex-start;font-size:.88rem;color:var(--gris);line-height:1.6;}
+.commander__steps li::before{content:counter(step);counter-increment:step;flex-shrink:0;width:26px;height:26px;border-radius:50%;background:rgba(200,162,74,.18);border:1px solid rgba(200,162,74,.5);color:var(--or-clair);display:grid;place-items:center;font-size:.75rem;font-weight:600;font-family:'Playfair Display',serif;}
+.commander__qr{position:relative;width:280px;height:280px;background:#fff;border-radius:12px;padding:16px;box-shadow:0 0 0 1px rgba(200,162,74,.4), 0 24px 60px rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.commander__qr::before{content:'';position:absolute;inset:-8px;border:1px dashed rgba(200,162,74,.4);border-radius:16px;pointer-events:none;}
+.commander__qr img{width:100%;height:100%;object-fit:contain;border-radius:6px;}
+.commander__actions{display:flex;flex-direction:column;gap:14px;align-items:flex-end;text-align:right;}
+.commander__actions .eyebrow{margin-bottom:6px;}
+.commander__actions .btn{width:100%;max-width:260px;}
+
+/* HIGHLIGHT FORM (arrivée par QR) */
+.form-card--highlight{
+  animation:formPulse 2.2s ease-in-out;
+  border-color:var(--or) !important;
+}
+@keyframes formPulse{
+  0%, 100% { box-shadow:var(--shadow); }
+  30%      { box-shadow:0 0 0 6px rgba(200,162,74,.35), var(--shadow); }
+  60%      { box-shadow:0 0 0 3px rgba(200,162,74,.2), var(--shadow); }
+}
+
+/* QR MODAL */
+.qr-modal{position:fixed;inset:0;z-index:2000;background:rgba(0,0,0,.88);backdrop-filter:blur(10px);display:flex;align-items:center;justify-content:center;padding:24px;opacity:0;visibility:hidden;transition:opacity .3s ease, visibility .3s ease;}
+.qr-modal.open{opacity:1;visibility:visible;}
+.qr-modal__inner{background:var(--noir-2);border:1px solid rgba(200,162,74,.35);border-radius:12px;padding:44px 36px 36px;max-width:440px;width:100%;text-align:center;position:relative;transform:scale(.95);transition:transform .35s cubic-bezier(.4,0,.2,1);box-shadow:0 30px 80px rgba(0,0,0,.7);}
+.qr-modal.open .qr-modal__inner{transform:scale(1);}
+.qr-modal__close{position:absolute;top:14px;right:14px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.08);color:var(--creme);display:grid;place-items:center;transition:var(--t);}
+.qr-modal__close:hover{background:var(--or);color:var(--noir);}
+.qr-modal__close svg{width:16px;height:16px;}
+.qr-modal h3{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--blanc);font-weight:600;margin-bottom:8px;}
+.qr-modal p{font-size:.85rem;color:var(--gris);margin-bottom:26px;line-height:1.6;}
+.qr-modal__qr{width:240px;height:240px;margin:0 auto 26px;background:#fff;border-radius:10px;padding:14px;box-shadow:0 0 0 1px rgba(200,162,74,.3);}
+.qr-modal__qr img{width:100%;height:100%;object-fit:contain;}
+.qr-modal .btn{width:100%;}
+
+/* QR FLOAT BUTTON */
+.qr-float{position:fixed;left:26px;bottom:90px;z-index:900;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:var(--or);color:var(--noir);box-shadow:0 12px 28px rgba(200,162,74,.45);transition:all .35s cubic-bezier(.4,0,.2,1);}
+.qr-float:hover{background:var(--or-clair);transform:translateY(-4px) scale(1.06);box-shadow:0 18px 36px rgba(200,162,74,.6);}
+.qr-float svg{width:24px;height:24px;}
+
+/* GALLERY */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:200px;gap:14px;}
+.gallery__item{position:relative;overflow:hidden;border-radius:var(--radius);cursor:pointer;}
+.gallery__item img{width:100%;height:100%;object-fit:cover;transition:transform .8s cubic-bezier(.4,0,.2,1), filter .5s ease;}
+.gallery__item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top, rgba(13,13,13,.85), transparent 60%);opacity:0;transition:opacity var(--t);}
+.gallery__item:hover img{transform:scale(1.1);filter:brightness(.85);}
+.gallery__item:hover::after{opacity:1;}
+.gallery__item span{position:absolute;left:20px;bottom:16px;z-index:2;font-size:.7rem;letter-spacing:.24em;text-transform:uppercase;color:var(--or-clair);opacity:0;transform:translateY(10px);transition:var(--t);}
+.gallery__item:hover span{opacity:1;transform:translateY(0);}
+.gallery__item--tall{grid-row:span 2;}
+.gallery__item--wide{grid-column:span 2;}
+
+/* REVIEWS */
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;}
+.review{background:var(--noir-3);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);padding:38px 32px;position:relative;transition:var(--t);}
+.review:hover{border-color:rgba(200,162,74,.4);transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.42);}
+.review__quote{font-family:'Playfair Display',serif;font-size:3.4rem;line-height:1;color:rgba(200,162,74,.3);margin-bottom:8px;}
+.review__stars{color:var(--or);letter-spacing:3px;font-size:.9rem;margin-bottom:16px;}
+.review p{color:var(--gris);font-size:.94rem;font-style:italic;line-height:1.75;margin-bottom:24px;}
+.review__author{display:flex;align-items:center;gap:14px;border-top:1px solid rgba(255,255,255,.08);padding-top:20px;}
+.review__avatar{width:46px;height:46px;border-radius:50%;background:var(--or);color:var(--noir);display:grid;place-items:center;font-family:'Playfair Display',serif;font-weight:700;font-size:1.05rem;flex-shrink:0;}
+.review__name{font-family:'Playfair Display',serif;font-size:.98rem;color:var(--blanc);font-weight:600;}
+.review__role{font-size:.75rem;color:var(--gris);letter-spacing:.08em;}
+
+/* RESERVATION */
+.reservation{position:relative;overflow:hidden;}
+.reservation__bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1600&q=80');background-size:cover;background-position:center;background-attachment:fixed;}
+.reservation__bg::after{content:'';position:absolute;inset:0;background:rgba(10,10,10,.92);}
+.reservation .container{position:relative;z-index:2;}
+.reservation__grid{display:grid;grid-template-columns:1fr 1.15fr;gap:70px;align-items:start;}
+.reservation__info .section__title{text-align:left;}
+.reservation__info .separator{margin-left:0;}
+.reservation__list{margin-top:38px;display:flex;flex-direction:column;gap:24px;}
+.reservation__list li{display:flex;gap:16px;align-items:flex-start;}
+.reservation__list svg{width:20px;height:20px;color:var(--or);flex-shrink:0;margin-top:3px;}
+.reservation__list strong{display:block;font-family:'Playfair Display',serif;color:var(--blanc);font-size:1rem;font-weight:600;margin-bottom:2px;}
+.reservation__list span{font-size:.88rem;color:var(--gris);}
+.reservation__list a{color:var(--gris);transition:color var(--t);}
+.reservation__list a:hover{color:var(--or);}
+.form-card{background:rgba(20,20,20,.92);border:1px solid rgba(200,162,74,.22);border-radius:var(--radius);padding:44px;backdrop-filter:blur(8px);box-shadow:var(--shadow);}
+.form__title{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--blanc);font-weight:600;margin-bottom:6px;}
+.form__sub{font-size:.86rem;color:var(--gris);margin-bottom:30px;}
+.form__row{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;}
+.form__group{display:flex;flex-direction:column;gap:7px;}
+.form__group--full{grid-column:1/-1;}
+.form__label{font-size:.7rem;letter-spacing:.16em;text-transform:uppercase;color:var(--gris);font-weight:400;}
+.form__input{width:100%;padding:13px 16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:var(--radius);color:var(--creme);font-size:.92rem;font-weight:300;transition:var(--t);outline:none;}
+.form__input::placeholder{color:#6b675f;}
+.form__input:focus{border-color:var(--or);background:rgba(200,162,74,.06);box-shadow:0 0 0 3px rgba(200,162,74,.1);}
+select.form__input{appearance:none;background-image:url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23c8a24a' stroke-width='2'%3e%3cpath d='M6 9l6 6 6-6'/%3e%3c/svg%3e");background-repeat:no-repeat;background-position:right 14px center;background-size:16px;padding-right:40px;cursor:pointer;}
+select.form__input option{background:var(--noir-2);color:var(--creme);}
+textarea.form__input{resize:vertical;min-height:96px;}
+input[type="date"].form__input,input[type="time"].form__input{color-scheme:dark;}
+.form__submit{width:100%;margin-top:8px;padding:16px;}
+.form__error{display:none;margin-top:14px;padding:12px 16px;font-size:.85rem;border-radius:var(--radius);background:rgba(176,74,74,.12);border:1px solid rgba(176,74,74,.4);color:#e79b9b;}
+.form__error.show{display:block;}
+.form__success{display:none;text-align:center;padding:26px 20px;margin-top:20px;border-radius:var(--radius);background:rgba(200,162,74,.1);border:1px solid rgba(200,162,74,.45);animation:itemIn .5s ease both;}
+.form__success.show{display:block;}
+.form__success h4{font-family:'Playfair Display',serif;color:var(--or-clair);font-size:1.2rem;margin-bottom:6px;}
+.form__success p{font-size:.88rem;color:var(--gris);}
+
+/* CONTACT */
+.contact__grid{display:grid;grid-template-columns:1fr 1.25fr;gap:60px;align-items:stretch;}
+.contact__cards{display:flex;flex-direction:column;gap:20px;}
+.contact-card{display:flex;gap:18px;padding:24px;background:var(--noir-3);border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);transition:var(--t);}
+.contact-card:hover{border-color:rgba(200,162,74,.4);transform:translateX(5px);}
+.contact-card__icon{flex-shrink:0;width:46px;height:46px;display:grid;place-items:center;border-radius:50%;background:rgba(200,162,74,.12);color:var(--or);}
+.contact-card__icon svg{width:20px;height:20px;}
+.contact-card h4{font-family:'Playfair Display',serif;font-size:1rem;color:var(--blanc);font-weight:600;margin-bottom:4px;}
+.contact-card p,.contact-card a{font-size:.88rem;color:var(--gris);transition:color var(--t);display:block;line-height:1.6;}
+.contact-card a:hover{color:var(--or);}
+.contact__map{border-radius:var(--radius);overflow:hidden;border:1px solid rgba(255,255,255,.08);min-height:420px;position:relative;background:var(--noir-3);}
+.contact__map iframe{width:100%;height:100%;min-height:420px;border:0;filter:grayscale(1) invert(.9) contrast(.85) brightness(.9);}
+.hours{margin-top:6px;font-size:.85rem;color:var(--gris);}
+.hours li{display:flex;justify-content:space-between;gap:16px;padding:6px 0;border-bottom:1px dashed rgba(255,255,255,.07);}
+.hours li:last-child{border-bottom:none;}
+.hours li span:last-child{color:var(--or-clair);}
+
+/* FOOTER */
+.footer{background:#080808;border-top:1px solid rgba(255,255,255,.07);padding:70px 0 0;}
+.footer__grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.2fr;gap:50px;padding-bottom:56px;}
+.footer__brand .logo{margin-bottom:20px;}
+.footer__brand p{font-size:.88rem;color:var(--gris);line-height:1.8;max-width:300px;}
+.footer h5{font-family:'Playfair Display',serif;font-size:1rem;color:var(--blanc);font-weight:600;margin-bottom:22px;letter-spacing:.04em;}
+.footer__links li{margin-bottom:11px;}
+.footer__links a{font-size:.88rem;color:var(--gris);transition:var(--t);display:inline-block;}
+.footer__links a:hover{color:var(--or);transform:translateX(5px);}
+.footer__contact li{font-size:.88rem;color:var(--gris);margin-bottom:12px;line-height:1.7;}
+.footer__contact a{color:var(--gris);transition:color var(--t);}
+.footer__contact a:hover{color:var(--or);}
+.socials{display:flex;gap:12px;margin-top:22px;}
+.socials a{width:40px;height:40px;display:grid;place-items:center;border:1px solid rgba(255,255,255,.13);border-radius:50%;color:var(--gris);transition:var(--t);}
+.socials a:hover{background:var(--or);border-color:var(--or);color:var(--noir);transform:translateY(-4px);}
+.socials svg{width:16px;height:16px;}
+.footer__bottom{border-top:1px solid rgba(255,255,255,.07);padding:26px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:.8rem;color:#6e6a62;}
+.footer__bottom a{color:#6e6a62;transition:color var(--t);}
+.footer__bottom a:hover{color:var(--or);}
+
+/* TO TOP */
+.to-top{position:fixed;right:26px;bottom:26px;z-index:900;width:48px;height:48px;display:grid;place-items:center;border-radius:50%;background:var(--or);color:var(--noir);box-shadow:0 12px 28px rgba(0,0,0,.45);opacity:0;visibility:hidden;transform:translateY(16px);transition:var(--t);}
+.to-top.show{opacity:1;visibility:visible;transform:translateY(0);}
+.to-top:hover{background:var(--or-clair);transform:translateY(-4px);}
+.to-top svg{width:18px;height:18px;}
+
+/* WHATSAPP FLOATING */
+.whatsapp-float{position:fixed;left:26px;bottom:26px;z-index:900;width:54px;height:54px;display:grid;place-items:center;border-radius:50%;background:#25D366;color:#fff;box-shadow:0 12px 28px rgba(37,211,102,.4);transition:all .35s cubic-bezier(.4,0,.2,1);}
+.whatsapp-float:hover{background:#1ebe5d;transform:translateY(-4px) scale(1.06);box-shadow:0 18px 36px rgba(37,211,102,.55);}
+.whatsapp-float svg{width:28px;height:28px;}
+
+/* RESPONSIVE */
+@media (max-width:1100px){.nav__list{gap:22px;}.nav__cta{display:none;}}
+@media (max-width:1024px){
+  .about__grid{gap:50px;}
+  .reservation__grid{grid-template-columns:1fr;gap:46px;}
+  .contact__grid{grid-template-columns:1fr;}
+  .footer__grid{grid-template-columns:1fr 1fr;gap:40px;}
+  .reviews{grid-template-columns:1fr;max-width:620px;margin:0 auto;}
+  .reservation__bg,.commander__bg{background-attachment:scroll;}
+}
+@media (max-width:900px){
+  .commander__card{grid-template-columns:1fr;text-align:center;padding:40px 24px;gap:34px;}
+  .commander__col .section__title{text-align:center;}
+  .commander__col .separator{margin:18px auto 0;}
+  .commander__steps{text-align:left;max-width:340px;margin:22px auto 0;}
+  .commander__actions{align-items:center;text-align:center;}
+  .commander__qr{width:240px;height:240px;}
+}
+@media (max-width:860px){
+  .nav__list{display:none;}
+  .burger{display:flex;}
+  .section{padding:82px 0;}
+  .about__grid{grid-template-columns:1fr;}
+  .about__images{max-width:440px;margin:0 auto;padding-right:38px;padding-bottom:38px;}
+  .about__badge{left:auto;right:-6px;top:auto;bottom:70px;width:92px;height:92px;}
+  .about__badge strong{font-size:1.35rem;}
+  .stats{grid-template-columns:1fr 1fr;gap:34px 16px;padding:36px 0;}
+  .menu__grid{grid-template-columns:1fr;}
+  .gallery{grid-template-columns:repeat(2,1fr);grid-auto-rows:170px;}
+  .gallery__item--wide{grid-column:span 2;}
+  .form-card{padding:30px 24px;}
+  .form__row{grid-template-columns:1fr;}
+  .footer__grid{grid-template-columns:1fr;gap:38px;}
+  .footer__bottom{flex-direction:column;text-align:center;}
+}
+@media (max-width:520px){
+  .container{padding:0 18px;}
+  .hero__actions{flex-direction:column;width:100%;}
+  .hero__actions .btn{width:100%;}
+  .menu-item{flex-direction:column;gap:16px;}
+  .menu-item__img{width:100%;height:170px;}
+  .about__features{grid-template-columns:1fr;}
+  .gallery{grid-template-columns:1fr;grid-auto-rows:220px;}
+  .gallery__item--wide{grid-column:span 1;}
+  .gallery__item--tall{grid-row:span 1;}
+  .contact__map,.contact__map iframe{min-height:320px;}
+  .to-top{right:16px;bottom:16px;width:44px;height:44px;}
+  .whatsapp-float{left:16px;bottom:16px;width:48px;height:48px;}
+  .whatsapp-float svg{width:24px;height:24px;}
+  .qr-float{left:16px;bottom:76px;width:48px;height:48px;}
+  .qr-float svg{width:22px;height:22px;}
+  .mobile-menu a{font-size:1.35rem;}
+  .qr-modal__inner{padding:36px 22px 28px;}
+  .qr-modal__qr{width:200px;height:200px;}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important;}
+  .reveal{opacity:1;transform:none;}
+  .form-card--highlight{animation:none;border-color:var(--or) !important;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header" id="header">
+  <div class="container">
+    <nav class="nav">
+      <a href="#accueil" class="logo" aria-label="REVO RESTO - Accueil">
+        <span class="logo__mark">R</span>
+        <span class="logo__text">REVO <span>RESTO</span></span>
+      </a>
+      <ul class="nav__list">
+        <li><a href="#accueil" class="nav__link active">Accueil</a></li>
+        <li><a href="#apropos" class="nav__link">À propos</a></li>
+        <li><a href="#menu" class="nav__link">Menu</a></li>
+        <li><a href="#commander" class="nav__link">Scan QR</a></li>
+        <li><a href="#galerie" class="nav__link">Galerie</a></li>
+        <li><a href="#avis" class="nav__link">Avis</a></li>
+        <li><a href="#contact" class="nav__link">Contact</a></li>
+      </ul>
+      <a href="#reservation" class="btn btn--primary nav__cta">Réserver</a>
+      <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#accueil">Accueil</a>
+  <a href="#apropos">À propos</a>
+  <a href="#menu">Menu</a>
+  <a href="#commander">Scan QR</a>
+  <a href="#galerie">Galerie</a>
+  <a href="#avis">Avis</a>
+  <a href="#contact">Contact</a>
+  <a href="#reservation" class="btn btn--primary">Réserver une table</a>
+</div>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <div class="hero__bg"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <p class="hero__eyebrow">Cuisine française · Depuis 2015</p>
+    <h1 class="hero__title">REVO RESTO<span>L'art de la table</span></h1>
+    <div class="hero__line"></div>
+    <p class="hero__subtitle">
+      Une cuisine authentique et raffinée, élaborée chaque jour à partir de produits
+      frais et de saison, au cœur de la ville.
+    </p>
+    <div class="hero__actions">
+      <a href="#menu" class="btn btn--primary">Découvrir le menu</a>
+      <a href="#reservation" class="btn btn--outline">Réserver une table</a>
+    </div>
+  </div>
+  <div class="hero__scroll">Défiler<span></span></div>
+</section>
+
+<!-- À PROPOS -->
+<section class="section" id="apropos">
+  <div class="container">
+    <div class="about__grid">
+      <div class="about__images reveal">
+        <div class="about__img-main">
+          <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?auto=format&fit=crop&w=800&q=80" alt="Salle du restaurant REVO RESTO">
+        </div>
+        <div class="about__img-small">
+          <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=600&q=80" alt="Notre chef en cuisine">
+        </div>
+        <div class="about__badge"><div><strong>10</strong><small>Ans d'expérience</small></div></div>
+      </div>
+      <div class="about__content reveal" data-delay="2">
+        <span class="eyebrow">Notre histoire</span>
+        <h2 class="section__title">Une passion pour le <span>goût</span> véritable</h2>
+        <div class="separator"></div>
+        <p class="about__text">
+          Fondé en 2015, <strong>REVO RESTO</strong> est né d'une conviction simple : offrir
+          une cuisine sincère, généreuse et élégante, où chaque produit raconte une histoire.
+          Nous travaillons main dans la main avec des producteurs locaux passionnés.
+        </p>
+        <p class="about__text">
+          Notre chef et son équipe composent une carte qui évolue au fil des saisons,
+          célébrant les saveurs du terroir français avec une touche de modernité.
+          Chaque assiette est un voyage, chaque service une attention.
+        </p>
+        <div class="about__features">
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l2.4 7.4H22l-6 4.6 2.3 7.4-6.3-4.7-6.3 4.7L8 14 2 9.4h7.6z"/></svg></div>
+            <div><h4>Produits frais</h4><p>Approvisionnement quotidien chez nos producteurs partenaires.</p></div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v9a6 6 0 0012 0V2"/><path d="M12 11v11"/><path d="M8 22h8"/></svg></div>
+            <div><h4>Chef passionné</h4><p>Une cuisine créative, précise et profondément humaine.</p></div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10l-1 6a4 4 0 01-8 0z"/><path d="M17 5h2a3 3 0 010 6h-1"/></svg></div>
+            <div><h4>Carte de saison</h4><p>Un menu qui change quatre fois par an, au rythme de la nature.</p></div>
+          </div>
+          <div class="feature">
+            <div class="feature__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+            <div><h4>Cadre chaleureux</h4><p>Une salle intimiste de 60 couverts, idéale pour vos moments.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="stats reveal" data-delay="2">
+      <div class="stat"><div class="stat__num" data-count="10">0</div><div class="stat__label">Années d'expérience</div></div>
+      <div class="stat"><div class="stat__num" data-count="48">0</div><div class="stat__label">Plats à la carte</div></div>
+      <div class="stat"><div class="stat__num" data-count="12500">0</div><div class="stat__label">Clients servis</div></div>
+      <div class="stat"><div class="stat__num" data-count="4">0</div><div class="stat__label">Étoiles de satisfaction</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MENU -->
+<section class="section section--alt" id="menu">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">Notre carte</span>
+      <h2 class="section__title">Des saveurs <span>inimitables</span></h2>
+      <div class="separator"></div>
+      <p class="section__text">
+        Une sélection de nos spécialités, préparées avec passion par notre chef.
+        La carte évolue selon les saisons et le marché.
+      </p>
+    </div>
+    <div class="menu__tabs reveal" data-delay="1" role="tablist">
+      <button class="tab active" data-filter="all" role="tab" aria-selected="true">Tout</button>
+      <button class="tab" data-filter="entrees" role="tab" aria-selected="false">Entrées</button>
+      <button class="tab" data-filter="plats" role="tab" aria-selected="false">Plats</button>
+      <button class="tab" data-filter="desserts" role="tab" aria-selected="false">Desserts</button>
+      <button class="tab" data-filter="boissons" role="tab" aria-selected="false">Boissons</button>
+    </div>
+    <div class="menu__grid reveal" data-delay="2" id="menuGrid">
+      <article class="menu-item" data-cat="entrees">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=400&q=80" alt="Salade du marché" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Salade du marché</h3><span class="menu-item__dots"></span><span class="menu-item__price">14 €</span></div>
+          <p>Mesclun croquant, tomates anciennes, avocat, copeaux de parmesan et vinaigrette au miel.</p>
+          <span class="tag">Végétarien</span>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="entrees">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=400&q=80" alt="Velouté de saison" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Velouté de saison</h3><span class="menu-item__dots"></span><span class="menu-item__price">11 €</span></div>
+          <p>Crème de potimarron rôti, éclats de noisettes torréfiées et huile de truffe.</p>
+          <span class="tag">Signature</span>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="plats">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?auto=format&fit=crop&w=400&q=80" alt="Pâtes fraîches" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Tagliatelles maison</h3><span class="menu-item__dots"></span><span class="menu-item__price">22 €</span></div>
+          <p>Pâtes fraîches, crème de parmesan affiné, jambon cru et basilic frais.</p>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="plats">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=400&q=80" alt="Pièce de bœuf" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Pièce de bœuf grillée</h3><span class="menu-item__dots"></span><span class="menu-item__price">32 €</span></div>
+          <p>Bœuf français maturé, sauce au poivre, pommes grenaille et légumes rôtis.</p>
+          <span class="tag">Best-seller</span>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="plats">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=400&q=80" alt="Filet de poisson" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Filet de poisson rôti</h3><span class="menu-item__dots"></span><span class="menu-item__price">28 €</span></div>
+          <p>Pêche du jour, beurre blanc citronné, riz sauvage et petits légumes croquants.</p>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="plats">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?auto=format&fit=crop&w=400&q=80" alt="Burger maison" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Burger REVO</h3><span class="menu-item__dots"></span><span class="menu-item__price">19 €</span></div>
+          <p>Pain brioché, bœuf charolais, cheddar affiné, oignons confits et frites maison.</p>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="desserts">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?auto=format&fit=crop&w=400&q=80" alt="Tiramisu maison" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Tiramisu maison</h3><span class="menu-item__dots"></span><span class="menu-item__price">9 €</span></div>
+          <p>Mascarpone onctueux, café expresso et cacao amer. Préparé le jour même.</p>
+          <span class="tag">Signature</span>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="desserts">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&w=400&q=80" alt="Glace artisanale" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Glaces artisanales</h3><span class="menu-item__dots"></span><span class="menu-item__price">8 €</span></div>
+          <p>Trois boules au choix : vanille bourbon, chocolat noir, fruits rouges ou pistache.</p>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="boissons">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=400&q=80" alt="Vin rouge" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Bordeaux rouge</h3><span class="menu-item__dots"></span><span class="menu-item__price">7 €</span></div>
+          <p>Verre de 15 cl — sélection de nos vignerons partenaires. Carte complète sur demande.</p>
+        </div>
+      </article>
+      <article class="menu-item" data-cat="boissons">
+        <div class="menu-item__img"><img src="https://images.unsplash.com/photo-1551024709-8f23befc6f87?auto=format&fit=crop&w=400&q=80" alt="Cocktail" loading="lazy"></div>
+        <div class="menu-item__body">
+          <div class="menu-item__top"><h3>Cocktail maison</h3><span class="menu-item__dots"></span><span class="menu-item__price">12 €</span></div>
+          <p>Création du barman au rhum ambré, fruits de la passion et citron vert.</p>
+          <span class="tag">Création</span>
+        </div>
+      </article>
+    </div>
+    <div class="menu__foot reveal">
+      <p class="menu__note">Menu dégustation en 5 services disponible à 65 € — sur réservation.</p>
+      <a href="#reservation" class="btn btn--primary">Réserver une table</a>
+    </div>
+  </div>
+</section>
+
+<!-- SCAN & RÉSERVEZ (QR) -->
+<section class="section commander" id="commander">
+  <div class="commander__bg"></div>
+  <div class="container">
+    <div class="commander__card reveal">
+      <div class="commander__col">
+        <span class="eyebrow">Réservation express</span>
+        <h2 class="section__title">Scannez & <span>réservez</span></h2>
+        <div class="separator"></div>
+        <p>
+          Flashez le QR code avec votre téléphone : vous serez redirigé vers le
+          formulaire de réservation. Remplissez vos informations et envoyez-les
+          directement sur WhatsApp.
+        </p>
+        <ul class="commander__steps">
+          <li>Scannez le QR code avec votre téléphone</li>
+          <li>Remplissez le formulaire de réservation</li>
+          <li>Validez : votre demande part sur WhatsApp</li>
+        </ul>
+      </div>
+      <div class="commander__qr">
+        <img class="qr-dynamic"
+             alt="QR code — Accéder au formulaire de réservation"
+             data-size="400">
+      </div>
+      <div class="commander__col commander__actions">
+        <span class="eyebrow">Ou directement</span>
+        <a href="#reservation" class="btn btn--primary">Remplir le formulaire</a>
+        <a href="https://wa.me/221785566000?text=Bonjour%20REVO%20RESTO%2C%20je%20souhaite%20r%C3%A9server%20une%20table."
+           class="btn btn--whatsapp" target="_blank" rel="noopener noreferrer">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
+            <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.4 2.5 1 3 .8 3.6.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/>
+            <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/>
+          </svg>
+          WhatsApp direct
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIE -->
+<section class="section" id="galerie">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">Galerie</span>
+      <h2 class="section__title">L'ambiance <span>REVO</span></h2>
+      <div class="separator"></div>
+      <p class="section__text">Un aperçu de notre univers : la salle, les assiettes et les coulisses.</p>
+    </div>
+    <div class="gallery reveal" data-delay="1">
+      <div class="gallery__item gallery__item--tall">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=800&q=80" alt="Salle du restaurant" loading="lazy">
+        <span>La salle</span>
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=600&q=80" alt="Assiette gourmande" loading="lazy">
+        <span>Nos assiettes</span>
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1551024506-0bccd828d307?auto=format&fit=crop&w=600&q=80" alt="Dessert" loading="lazy">
+        <span>Douceurs</span>
+      </div>
+      <div class="gallery__item gallery__item--wide">
+        <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1000&q=80" alt="Pizza artisanale" loading="lazy">
+        <span>Le four</span>
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=600&q=80" alt="Brunch" loading="lazy">
+        <span>Brunch du dimanche</span>
+      </div>
+      <div class="gallery__item">
+        <img src="https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=600&q=80" alt="Ambiance du soir" loading="lazy">
+        <span>Ambiance du soir</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AVIS -->
+<section class="section section--alt" id="avis">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">Témoignages</span>
+      <h2 class="section__title">Ce que disent nos <span>clients</span></h2>
+      <div class="separator"></div>
+    </div>
+    <div class="reviews">
+      <article class="review reveal" data-delay="1">
+        <div class="review__quote">“</div>
+        <div class="review__stars">★★★★★</div>
+        <p>Une expérience culinaire exceptionnelle. Le bœuf était cuit à la perfection et le service d'une gentillesse rare. Nous reviendrons sans hésiter !</p>
+        <div class="review__author">
+          <div class="review__avatar">MC</div>
+          <div><div class="review__name">Marie-Claire D.</div><div class="review__role">Cliente régulière</div></div>
+        </div>
+      </article>
+      <article class="review reveal" data-delay="2">
+        <div class="review__quote">“</div>
+        <div class="review__stars">★★★★★</div>
+        <p>Le cadre est magnifique, l'ambiance chaleureuse et les plats sont d'une finesse incroyable. Le menu dégustation vaut vraiment le détour.</p>
+        <div class="review__author">
+          <div class="review__avatar">TL</div>
+          <div><div class="review__name">Thomas L.</div><div class="review__role">Avis Google</div></div>
+        </div>
+      </article>
+      <article class="review reveal" data-delay="3">
+        <div class="review__quote">“</div>
+        <div class="review__stars">★★★★★</div>
+        <p>Nous avons fêté notre anniversaire ici et tout était parfait. Mention spéciale au tiramisu maison, le meilleur que j'aie jamais goûté.</p>
+        <div class="review__author">
+          <div class="review__avatar">SB</div>
+          <div><div class="review__name">Sophie B.</div><div class="review__role">Cliente satisfaite</div></div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- RÉSERVATION -->
+<section class="section reservation" id="reservation">
+  <div class="reservation__bg"></div>
+  <div class="container">
+    <div class="reservation__grid">
+      <div class="reservation__info reveal">
+        <span class="eyebrow">Réservation</span>
+        <h2 class="section__title">Réservez votre <span>table</span></h2>
+        <div class="separator"></div>
+        <p class="section__text">
+          Nous vous accueillons du mardi au dimanche. Pour les groupes de plus de 8 personnes,
+          merci de nous contacter directement sur WhatsApp.
+        </p>
+        <ul class="reservation__list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.4 2.5 1 3 .8 3.6.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/>
+            </svg>
+            <div>
+              <strong>WhatsApp</strong>
+              <span><a href="https://wa.me/221785566000?text=Bonjour%20REVO%20RESTO%2C%20je%20souhaite%20r%C3%A9server%20une%20table." target="_blank" rel="noopener noreferrer">+221 78 556 60 00</a></span>
+            </div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 6l-10 7L2 6"/></svg>
+            <div><strong>Par e-mail</strong><span><a href="mailto:contact@revoresto.fr">contact@revoresto.fr</a></span></div>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div><strong>Adresse</strong><span>24 rue des Gourmets, 75011 Paris</span></div>
+          </li>
+        </ul>
+      </div>
+      <div class="form-card reveal" data-delay="2" id="reservationFormCard">
+        <h3 class="form__title">Formulaire de réservation</h3>
+        <p class="form__sub">Remplissez le formulaire : votre demande s'ouvrira directement dans WhatsApp.</p>
+        <form id="reservationForm" novalidate>
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="name">Nom complet *</label>
+              <input class="form__input" type="text" id="name" name="name" placeholder="Jean Dupont" required>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="email">E-mail *</label>
+              <input class="form__input" type="email" id="email" name="email" placeholder="jean@exemple.fr" required>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="phone">Téléphone *</label>
+              <input class="form__input" type="tel" id="phone" name="phone" placeholder="+221 78 556 60 00" required>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="guests">Convives *</label>
+              <select class="form__input" id="guests" name="guests" required>
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="1">1 personne</option>
+                <option value="2">2 personnes</option>
+                <option value="3">3 personnes</option>
+                <option value="4">4 personnes</option>
+                <option value="5">5 personnes</option>
+                <option value="6">6 personnes</option>
+                <option value="7">7 personnes</option>
+                <option value="8">8 personnes</option>
+                <option value="9+">Plus de 8 (nous contacter)</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group">
+              <label class="form__label" for="date">Date *</label>
+              <input class="form__input" type="date" id="date" name="date" required>
+            </div>
+            <div class="form__group">
+              <label class="form__label" for="time">Heure *</label>
+              <select class="form__input" id="time" name="time" required>
+                <option value="" disabled selected>Sélectionnez</option>
+                <option value="12:00">12:00</option>
+                <option value="12:30">12:30</option>
+                <option value="13:00">13:00</option>
+                <option value="13:30">13:30</option>
+                <option value="19:00">19:00</option>
+                <option value="19:30">19:30</option>
+                <option value="20:00">20:00</option>
+                <option value="20:30">20:30</option>
+                <option value="21:00">21:00</option>
+                <option value="21:30">21:30</option>
+              </select>
+            </div>
+          </div>
+          <div class="form__row">
+            <div class="form__group form__group--full">
+              <label class="form__label" for="message">Demande particulière (optionnel)</label>
+              <textarea class="form__input" id="message" name="message" placeholder="Allergies, occasion spéciale, table en terrasse…"></textarea>
+            </div>
+          </div>
+          <button type="submit" class="btn btn--whatsapp form__submit">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" width="18" height="18">
+              <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.4 2.5 1 3 .8 3.6.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/>
+            </svg>
+            Confirmer sur WhatsApp
+          </button>
+          <div class="form__error" id="formError" role="alert"></div>
+          <div class="form__success" id="formSuccess" role="status">
+            <h4>Réservation envoyée ✓</h4>
+            <p>Merci ! WhatsApp va s'ouvrir avec votre message pré-rempli. Il ne reste plus qu'à l'envoyer.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="section__head reveal">
+      <span class="eyebrow">Contact</span>
+      <h2 class="section__title">Venez nous <span>rendre visite</span></h2>
+      <div class="separator"></div>
+      <p class="section__text">En plein cœur du 11ᵉ arrondissement, à deux pas du métro.</p>
+    </div>
+    <div class="contact__grid">
+      <div class="contact__cards reveal">
+        <div class="contact-card">
+          <div class="contact-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div><h4>Adresse</h4><p>24 rue des Gourmets<br>75011 Paris, France</p></div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__icon">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.4 2.5 1 3 .8 3.6.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/>
+            </svg>
+          </div>
+          <div>
+            <h4>WhatsApp</h4>
+            <a href="https://wa.me/221785566000" target="_blank" rel="noopener noreferrer">+221 78 556 60 00</a>
+            <a href="mailto:contact@revoresto.fr">contact@revoresto.fr</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card__icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+          </div>
+          <div style="flex:1">
+            <h4>Horaires d'ouverture</h4>
+            <ul class="hours">
+              <li><span>Mardi — Vendredi</span><span>12h–14h30 · 19h–22h30</span></li>
+              <li><span>Samedi</span><span>19h–23h</span></li>
+              <li><span>Dimanche</span><span>12h–15h</span></li>
+              <li><span>Lundi</span><span>Fermé</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="contact__map reveal" data-delay="2">
+        <iframe title="Localisation de REVO RESTO"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=2.3620%2C48.8500%2C2.3900%2C48.8640&layer=mapnik&marker=48.8570%2C2.3760"
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <a href="#accueil" class="logo">
+          <span class="logo__mark">R</span>
+          <span class="logo__text">REVO <span>RESTO</span></span>
+        </a>
+        <p>
+          Restaurant gastronomique au cœur de Paris. Une cuisine française authentique,
+          des produits de saison et un accueil chaleureux depuis 2015.
+        </p>
+        <div class="socials">
+          <a href="#" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          </a>
+          <a href="https://wa.me/221785566000" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+              <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.4 2.5 1 3 .8 3.6.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/>
+              <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/>
+            </svg>
+          </a>
+          <a href="#" aria-label="TripAdvisor">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="7.5" cy="13" r="4"/><circle cx="16.5" cy="13" r="4"/><path d="M7.5 13h.01M16.5 13h.01"/><path d="M2 8.5L12 3l10 5.5"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h5>Navigation</h5>
+        <ul class="footer__links">
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#apropos">À propos</a></li>
+          <li><a href="#menu">Notre menu</a></li>
+          <li><a href="#commander">Scan QR</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#avis">Avis clients</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Informations</h5>
+        <ul class="footer__links">
+          <li><a href="#reservation">Réservation</a></li>
+          <li><a href="#contact">Nous trouver</a></li>
+          <li><a href="#menu">Menu dégustation</a></li>
+          <li><a href="#contact">Groupes & événements</a></li>
+          <li><a href="#">Mentions légales</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <ul class="footer__contact">
+          <li>24 rue des Gourmets<br>75011 Paris, France</li>
+          <li><a href="https://wa.me/221785566000" target="_blank" rel="noopener noreferrer">WhatsApp : +221 78 556 60 00</a></li>
+          <li><a href="mailto:contact@revoresto.fr">contact@revoresto.fr</a></li>
+          <li>Mardi – Dimanche<br>12h–14h30 · 19h–22h30</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <p>© <span id="year">2025</span> REVO RESTO. Tous droits réservés.</p>
+      <p>Conçu avec passion · Paris, France</p>
+    </div>
+  </div>
+</footer>
+
+<!-- Bouton QR flottant -->
+<button class="qr-float" id="qrFloat" aria-label="Afficher le QR code de réservation">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <rect x="3" y="3" width="7" height="7" rx="1"/>
+    <rect x="14" y="3" width="7" height="7" rx="1"/>
+    <rect x="3" y="14" width="7" height="7" rx="1"/>
+    <path d="M14 14h3v3h-3zM21 14v3M14 21h3M21 21h.01"/>
+  </svg>
+</button>
+
+<!-- Modale QR -->
+<div class="qr-modal" id="qrModal" aria-hidden="true" role="dialog" aria-labelledby="qrModalTitle">
+  <div class="qr-modal__inner">
+    <button class="qr-modal__close" id="qrModalClose" aria-label="Fermer">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+    <h3 id="qrModalTitle">Réserver en un scan</h3>
+    <p>Scannez ce QR code avec votre téléphone : il ouvre directement le formulaire de réservation.</p>
+    <div class="qr-modal__qr">
+      <img class="qr-dynamic" alt="QR code — Accéder au formulaire de réservation" data-size="400">
+    </div>
+    <a href="#reservation" class="btn btn--primary" id="qrModalGoForm">Remplir le formulaire</a>
+  </div>
+</div>
+
+<!-- Bouton WhatsApp flottant -->
+<a href="https://wa.me/221785566000?text=Bonjour%20REVO%20RESTO%2C%20je%20souhaite%20r%C3%A9server%20une%20table."
+   class="whatsapp-float" target="_blank" rel="noopener noreferrer"
+   aria-label="Nous contacter sur WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+    <path d="M17.5 14.4c-.3-.2-1.7-.8-2-.9-.3-.1-.5-.2-.7.1-.2.3-.8.9-1 1.1-.2.2-.4.2-.7.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.7.1-.1.3-.4.5-.6.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-.9-2.3-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.2.2 2.1 3.2 5.1 4.4 2.5 1 3 .8 3.6.8.5-.1 1.7-.7 1.9-1.4.2-.7.2-1.3.2-1.4-.1-.2-.3-.2-.5-.3z"/>
+    <path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.5 1.3 5L2 22l5.2-1.3c1.4.8 3.1 1.3 4.8 1.3 5.5 0 10-4.5 10-10S17.5 2 12 2zm0 18c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-3.1.8.8-3-.2-.3C4 14.8 3.5 13.4 3.5 12c0-4.7 3.8-8.5 8.5-8.5s8.5 3.8 8.5 8.5-3.8 8.5-8.5 8.5z"/>
+  </svg>
+</a>
+
+<!-- Bouton retour en haut -->
+<button class="to-top" id="toTop" aria-label="Retour en haut">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+</button>
+
+<script>
+(function () {
+  'use strict';
+
+  const WHATSAPP_NUMBER = '221785566000';
+
+  /* ============================================================
+     QR CODE DYNAMIQUE → pointe vers le formulaire de réservation
+     ============================================================ */
+  function buildReservationUrl() {
+    // URL propre : origine + chemin (sans query, sans hash)
+    const base = window.location.origin + window.location.pathname;
+    // ?qr=1 permet de détecter l'arrivée par scan et de mettre en avant le formulaire
+    return base + '?qr=1#reservation';
+  }
+
+  function generateQRCode() {
+    const targetUrl = buildReservationUrl();
+    const apiBase = 'https://api.qrserver.com/v1/create-qr-code/';
+
+    document.querySelectorAll('.qr-dynamic').forEach(img => {
+      const size = img.dataset.size || 400;
+      const params = new URLSearchParams({
+        size: size + 'x' + size,
+        data: targetUrl,
+        color: '0d0d0d',
+        bgcolor: 'ffffff',
+        margin: '10',
+        qzone: '2'
+      });
+      img.src = apiBase + '?' + params.toString();
+      // Attribut title pour accessibilité
+      img.title = 'QR code — ' + targetUrl;
+    });
+  }
+
+  // Génération après chargement du DOM
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', generateQRCode);
+  } else {
+    generateQRCode();
+  }
+
+  /* ============================================================
+     DÉTECTION ARRIVÉE PAR QR : ?qr=1
+     → scroll + highlight du formulaire de réservation
+     ============================================================ */
+  function highlightReservationForm() {
+    const params = new URLSearchParams(window.location.search);
+    const isFromQR = params.get('qr') === '1' || window.location.hash === '#reservation';
+
+    if (!isFromQR) return;
+
+    const formCard = document.getElementById('reservationFormCard');
+    if (!formCard) return;
+
+    // Attendre un peu que la page soit stabilisée
+    setTimeout(() => {
+      formCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      formCard.classList.add('form-card--highlight');
+
+      // Focus sur le premier champ pour faciliter la saisie
+      const firstInput = document.getElementById('name');
+      if (firstInput) {
+        setTimeout(() => firstInput.focus({ preventScroll: true }), 700);
+      }
+
+      // Retirer le highlight après l'animation
+      setTimeout(() => formCard.classList.remove('form-card--highlight'), 3500);
+    }, 400);
+  }
+
+  // Lancer au chargement
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', highlightReservationForm);
+  } else {
+    highlightReservationForm();
+  }
+
+  /* ============================================================
+     LE RESTE DU SITE (header, menu mobile, formulaire, etc.)
+     ============================================================ */
+
+  /* Année footer */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Header au scroll + bouton retour en haut */
+  const header = document.getElementById('header');
+  const toTop = document.getElementById('toTop');
+  function onScroll() {
+    const y = window.scrollY;
+    header.classList.toggle('scrolled', y > 60);
+    toTop.classList.toggle('show', y > 500);
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  /* Menu mobile */
+  const burger = document.getElementById('burger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  function closeMenu() {
+    burger.classList.remove('active');
+    mobileMenu.classList.remove('open');
+    burger.setAttribute('aria-expanded', 'false');
+    document.body.style.overflow = '';
+  }
+  burger.addEventListener('click', () => {
+    const isOpen = mobileMenu.classList.toggle('open');
+    burger.classList.toggle('active', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+  });
+  mobileMenu.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
+  });
+
+  /* Retour en haut */
+  toTop.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* Animations reveal */
+  const revealEls = document.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+    revealEls.forEach(el => io.observe(el));
+  } else {
+    revealEls.forEach(el => el.classList.add('is-visible'));
+  }
+
+  /* Compteurs animés */
+  const counters = document.querySelectorAll('[data-count]');
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.count, 10);
+    const duration = 1600;
+    const start = performance.now();
+    function step(now) {
+      const progress = Math.min((now - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const value = Math.floor(eased * target);
+      el.textContent = value.toLocaleString('fr-FR');
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target.toLocaleString('fr-FR');
+    }
+    requestAnimationFrame(step);
+  }
+  if ('IntersectionObserver' in window) {
+    const counterObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          animateCounter(entry.target);
+          counterObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.5 });
+    counters.forEach(c => counterObserver.observe(c));
+  } else {
+    counters.forEach(c => c.textContent = c.dataset.count);
+  }
+
+  /* Filtres du menu */
+  const tabs = document.querySelectorAll('.tab');
+  const menuItems = document.querySelectorAll('.menu-item');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('active');
+      tab.setAttribute('aria-selected', 'true');
+      const filter = tab.dataset.filter;
+      menuItems.forEach((item, i) => {
+        const match = filter === 'all' || item.dataset.cat === filter;
+        item.classList.toggle('hide', !match);
+        if (match) {
+          item.style.animation = 'none';
+          void item.offsetWidth;
+          item.style.animation = 'itemIn .45s ease both';
+          item.style.animationDelay = (i * 0.05) + 's';
+        }
+      });
+    });
+  });
+
+  /* Lien de navigation actif */
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav__link');
+  function setActiveLink() {
+    const scrollPos = window.scrollY + 140;
+    let currentId = '';
+    sections.forEach(section => {
+      if (scrollPos >= section.offsetTop) currentId = section.id;
+    });
+    navLinks.forEach(link => {
+      link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+    });
+  }
+  window.addEventListener('scroll', setActiveLink, { passive: true });
+  setActiveLink();
+
+  /* ============================================================
+     FORMULAIRE DE RÉSERVATION → ENVOI WHATSAPP
+     ============================================================ */
+  const form = document.getElementById('reservationForm');
+  const formError = document.getElementById('formError');
+  const formSuccess = document.getElementById('formSuccess');
+  const dateInput = document.getElementById('date');
+  const today = new Date().toISOString().split('T')[0];
+  dateInput.min = today;
+
+  function showError(message) {
+    formError.textContent = message;
+    formError.classList.add('show');
+    formSuccess.classList.remove('show');
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    formError.classList.remove('show');
+    formSuccess.classList.remove('show');
+
+    const name = form.name.value.trim();
+    const email = form.email.value.trim();
+    const phone = form.phone.value.trim();
+    const guests = form.guests.value;
+    const date = form.date.value;
+    const time = form.time.value;
+    const note = form.message.value.trim();
+
+    if (name.length < 2) return showError("Merci d'indiquer votre nom complet.");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i;
+    if (!emailRegex.test(email)) return showError("Merci d'indiquer une adresse e-mail valide.");
+    const phoneRegex = /^[0-9+\s().-]{8,20}$/;
+    if (!phoneRegex.test(phone)) return showError("Merci d'indiquer un numéro de téléphone valide.");
+    if (!guests) return showError("Merci de sélectionner le nombre de convives.");
+    if (!date) return showError("Merci de choisir une date de réservation.");
+    if (date < today) return showError("La date choisie est déjà passée. Merci d'en sélectionner une autre.");
+    if (!time) return showError("Merci de sélectionner une heure d'arrivée.");
+
+    const message =
+      `Bonjour REVO RESTO, je souhaite réserver une table :\n` +
+      `• Nom : ${name}\n` +
+      `• E-mail : ${email}\n` +
+      `• Téléphone : ${phone}\n` +
+      `• Convives : ${guests}\n` +
+      `• Date : ${date}\n` +
+      `• Heure : ${time}` +
+      (note ? `\n• Demande : ${note}` : '');
+
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`, '_blank');
+    formSuccess.classList.add('show');
+    formSuccess.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  /* ============================================================
+     MODALE QR
+     ============================================================ */
+  const qrFloat = document.getElementById('qrFloat');
+  const qrModal = document.getElementById('qrModal');
+  const qrModalClose = document.getElementById('qrModalClose');
+  const qrModalGoForm = document.getElementById('qrModalGoForm');
+
+  function openQrModal() {
+    if (!qrModal) return;
+    qrModal.classList.add('open');
+    qrModal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeQrModal() {
+    if (!qrModal) return;
+    qrModal.classList.remove('open');
+    qrModal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+  if (qrFloat) qrFloat.addEventListener('click', openQrModal);
+  if (qrModalClose) qrModalClose.addEventListener('click', closeQrModal);
+  if (qrModalGoForm) qrModalGoForm.addEventListener('click', closeQrModal);
+  if (qrModal) qrModal.addEventListener('click', (e) => {
+    if (e.target === qrModal) closeQrModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && qrModal && qrModal.classList.contains('open')) closeQrModal();
+  });
+
+  /* Fermer menu mobile au redimensionnement */
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 860) closeMenu();
+  });
+
+})();
+</script>
+</body>
+</html>
